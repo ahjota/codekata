@@ -1,4 +1,4 @@
-package net.ahjota.praxis;
+package net.ahjota.praxis.bingo;
 
 /**
  * Bingo is a children’s game of chance, sometimes played by adults for fun or
