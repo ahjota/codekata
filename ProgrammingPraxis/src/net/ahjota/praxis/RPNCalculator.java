@@ -17,18 +17,12 @@ public class RPNCalculator {
 
 	static Stack<Double> calculatorStack = new Stack<Double>();
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Scanner consoleScanner = new Scanner(System.in);
 
-		System.out.println("AJ's RPN Calculator");
 		System.out.println("Enter RPN expressions below with spaces.");
-		System.out
-				.println("Type 'Q' on a newline and hit enter to exit the calculator.");
 		System.out.println("Non-numeric characters are ignored.");
+		System.out.println("Type 'Q' on a newline and hit enter to exit the calculator.");
 
 		calculatorStack = new Stack<Double>();
 
