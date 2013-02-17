@@ -14,8 +14,12 @@ package net.ahjota.praxis;
  */
 public class Quine {
 	public static void main(String[] args) {
-		int charQuote = 34;
-		String srcCode[] = {// line 18
+		char charTab = 9;
+		String charTabs = new String(new char[]{charTab, charTab, charTab, charTab});
+		char charQuote = 34;
+		char charComma = 44;
+		String srcCode[] = {// line 21
+				
 				"package net.ahjota.praxis; ",
 				"",
 				"/**",
@@ -32,22 +36,39 @@ public class Quine {
 				" */",
 				"public class Quine {",
 				"	public static void main(String[] args) {",
-				"		int charQuote = 34;",
-				"		String srcCode[] = {// line 18",
-				"...",
+				"		char charTab = 9;",
+				"		String charTabs = new String(new char[]{charTab, charTab, charTab, charTab});",
+				"		char charQuote = 34;",
+				"		char charComma = 44;",
+				"		String srcCode[] = {// line 21",
+				"",
+				"",
+				"		};",
+				"",
+				"		int i;",
+				"		for (i = 0; i < 22; ++i) {",
+				"			System.out.println(srcCode[i]);// before srcCode definition",
+				" 		}",
+				"		for (String loc : srcCode) {",
+				"			System.out.println(charTabs + charQuote + loc + charQuote + charComma);",
+				"		}",
+				"		for (i = 22; i < srcCode.length; ++i) {",
+				"			System.out.println(srcCode[i]);// after srcCode definition",
+				"		}",
 				"	}",
 				"}"
-		};// line 39
+
+		};
 		
 		int i;
-		for (i = 0; i < 18; ++i) {
-			System.out.println(srcCode[i]);
+		for (i = 0; i < 22; ++i) {
+			System.out.println(srcCode[i]);// before srcCode definition
 		}
 		for (String loc : srcCode) {
-			System.out.println(loc);
+			System.out.println(charTabs + charQuote + loc + charQuote + charComma);
 		}
-		for (i = 39; i < srcCode.length; ++i) {
-			System.out.println(srcCode[i]);
+		for (i = 22; i < srcCode.length; ++i) {
+			System.out.println(srcCode[i]);// after srcCode definition
 		}
 	}
 }
