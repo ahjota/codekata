@@ -24,6 +24,8 @@ public class ROT13 {
 			input = consoleScanner.nextLine();
 		} while (!input.isEmpty());
 
+		consoleScanner.close();
+		
 		// should print "Programming Praxis is fun!"
 		System.out.println(rot13("Cebtenzzvat Cenkvf vf sha!"));
 		
