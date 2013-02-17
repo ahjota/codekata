@@ -29,15 +29,16 @@ public class ROT13 {
 		
 	}
 
-	public static String rot13(String str) {
-		if (str.isEmpty()) {
-			return str;
-		}
-		
-		StringBuilder rot13 = new StringBuilder(str.length());
-		for (char ch : str.toCharArray()) {
+	public static char[] rot13(String str) {
+		return rot13(str.toCharArray());
+	}
+	
+	public static char[] rot13(char[] str) {
+		int ch = 0, ch13 = 0;
+		for (int i=0; i<str.length; ++i) {
+			ch = str[i];
 			if (Character.isLetter(ch)) {// A-Z,a-z:65-90,97:122
-				int ch13 = ch + 13;
+				ch13 = ch + 13;
 				if (Character.isUpperCase(ch)) {// A-Z:65-90
 					ch13 -= 65;
 					ch13 %= 26;
@@ -47,14 +48,11 @@ public class ROT13 {
 					ch13 %= 26;
 					ch13 += 97;
 				}
-				rot13.append((char)(ch13));
-			}
-			 else {
-				rot13.append(ch);
+				str[i] = (char)ch13;
 			}
 		}
 
-		return rot13.toString();
+		return str;
 	}
 
 }
