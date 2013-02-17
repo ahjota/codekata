@@ -10,7 +10,7 @@ import java.util.Scanner;
  * 
  * @author AJ
  */
-public class Rot13 {
+public class ROT13 {
 
 	public static void main(String[] args) {
 		Scanner consoleScanner = new Scanner(System.in);
