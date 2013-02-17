@@ -34,7 +34,7 @@ public class ROT13 {
 			return str;
 		}
 		
-		StringBuilder rot13 = new StringBuilder();
+		StringBuilder rot13 = new StringBuilder(str.length());
 		for (char ch : str.toCharArray()) {
 			if (Character.isLetter(ch)) {// A-Z,a-z:65-90,97:122
 				int ch13 = ch + 13;
