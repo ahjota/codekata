@@ -1,5 +1,8 @@
 package net.ahjota.praxis.bingo;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * Bingo is a children’s game of chance, sometimes played by adults for fun or
  * money. Each player has a card of numbers arranged in a five-by-five grid with
@@ -22,5 +25,61 @@ package net.ahjota.praxis.bingo;
  * @author AJ
  */
 public class Bingo {
+
+	/* 0-75, where 0 = free space and 1-75 are actual numbers */
+	static final int numberSetSize = 76;
+
+	static final int boardSize = 25;
+
+	static final int columnRange = 15;
+
+	static final int colSize = 5;
+
+	static final int cardsToPlay = 500;
+	static final int gamesToPlay = 100;
+
+	public static void main(String[] args) {
+		ArrayList<BingoCard> cards = new ArrayList<BingoCard>(cardsToPlay);
+		for (int i = 0; i < cardsToPlay; ++i) {
+			cards.add(new BingoCard());
+		}
+		int gamesPlayed = 0;
+
+		ArrayList<Integer> numbersCalled = new ArrayList<Integer>(numberSetSize - 1);
+		for (int i = 1; i < numberSetSize; ++i) {
+			numbersCalled.add(i);
+		}
+
+		int totalNumbersCalled = 0;
+		while (gamesPlayed < gamesToPlay) {
+			for (BingoCard card : cards) {
+				card.resetCard();
+			}
+			Collections.shuffle(numbersCalled);
+
+			int i = 0;
+			gameLoop:
+			for (i = 0; i < numbersCalled.size(); ++i) {
+				for (BingoCard card : cards) {
+					card.mark(numbersCalled.get(i));
+					if (card.checkForBingo()) {
+						// System.out.println("BINGO! after " + (i+1) + " numbers called");
+						// System.out.println("Numbers called: " + numbersCalled.subList(0, i));
+
+						break gameLoop;
+					}
+				}
+			}
+
+			totalNumbersCalled += i;
+			++gamesPlayed;
+		}
+
+		System.out.println("Total games played: " + gamesToPlay);
+		System.out.println("Total numbers called: " + totalNumbersCalled);
+		System.out.println("Average numbers called before a BINGO: "
+				+ totalNumbersCalled / gamesToPlay);
+
+	}
 
 }
