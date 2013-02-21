@@ -45,7 +45,6 @@ public class BingoCard {
 
 	public BingoCard() {
 		this.generateBoard();
-		resetCard();
 	}
 
 	private void generateBoard() {
@@ -76,14 +75,12 @@ public class BingoCard {
 		// reset free space
 		boardNumbers.set(12, FREE_SPACE);
 
-		// mark free space
-		this.mark(FREE_SPACE);
-
-		// this.printBoard();
+		this.printBoard();
 	}
 
 	public void resetCard() {
 		board.clear();
+		this.mark(FREE_SPACE);
 	}
 
 	public void mark(int numberCalled) {
