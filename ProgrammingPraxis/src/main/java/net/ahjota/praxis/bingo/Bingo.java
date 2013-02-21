@@ -39,19 +39,25 @@ public class Bingo {
 	static final int gamesToPlay = 100;
 
 	public static void main(String[] args) {
+		int gamesPlayed = 0;
+		int totalNumbersCalled = 0;
+		
+		// create new cards for play
 		ArrayList<BingoCard> cards = new ArrayList<BingoCard>(cardsToPlay);
 		for (int i = 0; i < cardsToPlay; ++i) {
 			cards.add(new BingoCard());
 		}
-		int gamesPlayed = 0;
+		
 
+		// prepare the number machine, part 1
 		ArrayList<Integer> numbersCalled = new ArrayList<Integer>(numberSetSize - 1);
 		for (int i = 1; i < numberSetSize; ++i) {
 			numbersCalled.add(i);
 		}
 
-		int totalNumbersCalled = 0;
+		// play games!
 		while (gamesPlayed < gamesToPlay) {
+			// prepare the number machine, part 2
 			for (BingoCard card : cards) {
 				card.resetCard();
 			}
@@ -60,7 +66,9 @@ public class Bingo {
 			int i = 0;
 			gameLoop:
 			for (i = 0; i < numbersCalled.size(); ++i) {
+				// for each number called...
 				for (BingoCard card : cards) {
+					// ...and for each card in play...
 					card.mark(numbersCalled.get(i));
 					if (card.checkForBingo()) {
 						// System.out.println("BINGO! after " + (i+1) + " numbers called");
@@ -78,7 +86,7 @@ public class Bingo {
 		System.out.println("Total games played: " + gamesToPlay);
 		System.out.println("Total numbers called: " + totalNumbersCalled);
 		System.out.println("Average numbers called before a BINGO: "
-				+ totalNumbersCalled / gamesToPlay);
+				+ (double)totalNumbersCalled / gamesToPlay);
 
 	}
 

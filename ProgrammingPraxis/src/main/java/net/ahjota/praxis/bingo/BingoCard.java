@@ -75,7 +75,7 @@ public class BingoCard {
 		// reset free space
 		boardNumbers.set(12, FREE_SPACE);
 
-		this.printBoard();
+//		this.printBoard();
 	}
 
 	public void resetCard() {
