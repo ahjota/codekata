@@ -1,6 +1,11 @@
 package net.ahjota.praxis.markvshaney;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.DirectoryStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 /**
@@ -19,32 +24,55 @@ public class EqualProbabilitiesShaney implements MarkVShaney {
     Map<String, List<String>> equalProbabilitiesMarkov = new HashMap<String, List<String>>();
     private Random rng;
 
-    public static void main(String[] args) {
-        MarkVShaney epShaney = null;
+    public static void main(String[] args) throws IOException {
+        MarkVShaney epShaney = new EqualProbabilitiesShaney();
 
-        if (args[0] != null) {
-            String fileName = args[0];
-            try {
-                epShaney = new EqualProbabilitiesShaney(new FileReader(fileName));
-            } catch (FileNotFoundException e) {
-                throw new IllegalArgumentException("File not found; exiting");
-            }
-        }
+        // path
+        Path path = FileSystems.getDefault().getPath(args[0]);
+        System.out.println(path);
+        System.out.println(Files.isDirectory(path));
 
-        if (args.length > 1) {
-            for (String fileName : args) {
+        if (Files.isDirectory(path)) {
+            // we are in a directory, now read all files into Shaney
+            DirectoryStream<Path> dir = Files.newDirectoryStream(path);
 
-                try {
-                    epShaney.train(new FileReader(fileName));
-                } catch (FileNotFoundException e) {
-                    System.out.println("Additional files not found");
+            for (Path entry : dir) {
+                if (Files.isRegularFile(entry) && Files.isReadable(entry)) {
+                    System.out.println(entry);
+                    epShaney.train(Files.newBufferedReader(entry, StandardCharsets.UTF_8));
                 }
             }
         }
 
-        if (epShaney != null) {
-            System.out.println(epShaney.generate(1));
-        }
+        System.out.println(epShaney.generate(200));
+//
+//        if (args[0] != null) {
+//            String fileName = args[0];
+//            try {
+//                epShaney = new EqualProbabilitiesShaney(new FileReader(fileName));
+//            } catch (FileNotFoundException e) {
+//                throw new IllegalArgumentException("File not found; exiting");
+//            }
+//        }
+//
+//        if (args.length > 1) {
+//            for (String fileName : args) {
+//
+//                try {
+//                    epShaney.train(new FileReader(fileName));
+//                } catch (FileNotFoundException e) {
+//                    System.out.println("Additional files not found");
+//                }
+//            }
+//        }
+//
+//        if (epShaney != null) {
+//            System.out.println(epShaney.generate(200));
+//        }
+    }
+
+    public EqualProbabilitiesShaney() {
+
     }
 
     public EqualProbabilitiesShaney(Reader trainingText) {
@@ -175,6 +203,9 @@ public class EqualProbabilitiesShaney implements MarkVShaney {
     }
 
     private String chooseNextWord(String word1, String word2) {
+        if (word1 == null && word2 == null) {
+            System.out.println("NULL TIME");
+        }
         String word3;List<String> futureStates = equalProbabilitiesMarkov.get(createKey(word1, word2));
 //            System.out.println(key + ":" + futureStates);
 
