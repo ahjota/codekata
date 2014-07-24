@@ -52,6 +52,11 @@ public interface MarkVShaney {
     public void train(Reader is);
 
     /**
+     * Clears the Markov chain used by this Shaney.
+     */
+    public void clearMarkovChain();
+
+    /**
      * @param wordCount Minimum number of words the generated text should contain.
      * @return A text string generated from the Mark V. Shaney markov chain.
      * @throws IllegalStateException if Mark V. Shaney has not consumed a training text.
