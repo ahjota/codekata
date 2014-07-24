@@ -25,7 +25,7 @@ public class EqualProbabilitiesShaney implements MarkVShaney {
                 FileReader reader = new FileReader(fileName);
 
                 MarkVShaney epShaney = new EqualProbabilitiesShaney(reader);
-                System.out.println(epShaney.generate(50));
+                System.out.println(epShaney.generate(100));
             } catch (FileNotFoundException e) {
                 throw new IllegalArgumentException("File not found; exiting");
             }
@@ -49,11 +49,6 @@ public class EqualProbabilitiesShaney implements MarkVShaney {
             bReader = new BufferedReader(reader);
         }
 
-        // read in characters
-        // for each character
-        //  determine if whitespace
-
-
         int nextChar = 0;
         try {
             StringBuilder sb = new StringBuilder();
@@ -66,7 +61,7 @@ public class EqualProbabilitiesShaney implements MarkVShaney {
             do {
                 nextChar = bReader.read();
                 if (Character.isWhitespace(nextChar)) {
-//                    if (wasWhitespace) continue;
+                    if (wasWhitespace) continue;
 
                     // we've completed a new token.
                     // store token in token3, then add everything to the map.
@@ -80,9 +75,10 @@ public class EqualProbabilitiesShaney implements MarkVShaney {
 //                    System.out.println(key + ":" + token3);
 
                     sb = new StringBuilder();
-//                    wasWhitespace = true;
+                    wasWhitespace = true;
                 } else {
                     sb.append((char) nextChar);
+                    wasWhitespace = false;
                 }
             } while (nextChar > -1);
         } catch (IOException e) {
