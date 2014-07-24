@@ -1,11 +1,10 @@
 package net.ahjota.praxis.eratosthenes;
 
-import java.util.BitSet;
+import java.util.Arrays;
 
 /**
- * This implementation uses a bit array to represent the list of primes, where
- * the array index is the actual numerical value and the bit value represents
- * whether said value is prime.
+ *  This implementation is identical to that of BooleanArraySieve except
+ *  we skip the even sieves entirely.
  * 
  * 10		14037 ns
  * 1000		4.5051E-4 s
@@ -16,30 +15,30 @@ import java.util.BitSet;
  * 
  * 100000000	1.3224 s
  * 1000000000	15.037 s
- * 
+ *
  * @author AJ
  * 
  */
-public class BitSetSieve extends Sieve {
+public class BooleanArraySieveWithEvenSkip extends Sieve {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		BitSetSieve sieve = new BitSetSieve();
+		BooleanArraySieveWithEvenSkip sieve = new BooleanArraySieveWithEvenSkip();
 		
 		int[] tests = new int[] { 1
 				// ,10
 				, 100
-		// ,1000
-		// ,10000
+		 ,1000
+		 ,10000
 		// ,100000
 		// ,1000000
 		// ,15485863
-		 ,100000000
+		// ,100000000
 		// ,1000000000
 		};
-
+		
 		for (int test : tests) {
 			long result = sieve.countPrimesLessThanOrEqualTo(test);
 			System.out.println("There are " + result + " primes <= " + test);
@@ -53,22 +52,30 @@ public class BitSetSieve extends Sieve {
 	 */
 	@Override
 	public long countPrimesLessThanOrEqualTo(int n) {
-		BitSet primes = listPrimesLessThanOrEqualTo(n);
+		boolean[] primes = listPrimesLessThanOrEqualTo(n);
 		
 		// System.out.println("There are " + primes.cardinality() + " primes <= " + n);
 		// System.out.println(primes.toString());
 		// System.out.println(primes.previousSetBit(primes.size()));
 
-		return primes.cardinality();
+		long result = 0;
+		for (boolean isPrime : primes) {
+			if (isPrime) {
+				result++;
+			}
+		}
+		
+		return result;
 	}
 
-	public static BitSet listPrimesLessThanOrEqualTo(int n) {
-		BitSet primes = new BitSet(n);
-
+	protected static boolean[] listPrimesLessThanOrEqualTo(int n) {
+		boolean[] primes = new boolean[n+1];// to avoid one-off errors
+		Arrays.fill(primes, false);
+		
 		if (n < 2) {
 			return primes;
 		}
-		primes.set(2);
+		primes[2] = true;
 
 		if (n < 3) {
 			return primes;
@@ -76,27 +83,27 @@ public class BitSetSieve extends Sieve {
 
 		// optimization: we only need to consider odd integers > 2
 		for (int i = 3; i <= n; i += 2) {
-			primes.set(i);
+			primes[i] = true;
 		}
+
+		int lastSieve = (int) Math.sqrt(n);
 
 		// optimization: we can stop sifting at the square root of the last
 		// element (largest number) in the sieve
-        // optimization: instead of incrementing the sieve by one each iteration,
-        // increment the sieve to the next actual prime.
-        int lastSieve = (int) Math.sqrt(n);
-		for (int sieve = 3; sieve <= lastSieve; sieve = primes
-				.nextSetBit(sieve + 1)) {
-            // System.out.println("Sifting multiples of " + sieve);
-            // optimization: for each sift, we have already determined primality of all
-            // candidates less than the square of the sift number, so we can start
-            // removing non-primes beginning with the square of the sift number
-			for (int remove = sieve * sieve; remove <= n; remove += sieve) {
-				primes.clear(remove);
-			}
+
+		for (int sieve = 3; sieve <= lastSieve; sieve += 2) {
+			if (primes[sieve]) {
+			// System.out.println("Sifting multiples of " + sieve);
+			// optimization: within each sift, we start removing non-primes
+			// beginning with the square of the sifting number
+				for (int remove = sieve * sieve; remove <= n; remove += sieve) {
+					primes[remove] = false;
+				}
 			// System.out.println("Sift complete: " + primes.toString());
+			}
 		}
 
 		return primes;
 	}
-
+	
 }

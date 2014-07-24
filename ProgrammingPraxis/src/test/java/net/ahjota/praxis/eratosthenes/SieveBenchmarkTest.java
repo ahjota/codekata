@@ -11,32 +11,33 @@ import com.carrotsearch.junitbenchmarks.AbstractBenchmark;
  *
  */
 public class SieveBenchmarkTest extends AbstractBenchmark {
-	
-	private static VectorSieve vectorSieve = new VectorSieve();
-	private static BooleanArrayListSieve booleanArrayListSieve = new BooleanArrayListSieve();
-	private static BooleanArraySieve booleanArraySieve = new BooleanArraySieve();
-	private static BitSetSieve bitSetSieve = new BitSetSieve();
-	
-	private static int n = 50000;//TODO increase to 15485863 or higher
-	
-	@Test
-	public final void loadTestVectorSieve() {
-		loadTestSieve(vectorSieve);
-	}
-	
-	@Test
-	public final void loadTestBooleanArrayListSieve() {
-		loadTestSieve(booleanArrayListSieve);
-	}
+
+	private static int n = 10000;//TODO increase to 15485863 or higher
+
+//	@Test
+	public final void loadTestVectorSieve() {loadTestSieve(new VectorSieve()); }
 
 	@Test
-	public final void loadTestBooleanArraySieve() {
-		loadTestSieve(booleanArraySieve);
+	public final void loadTestBooleanArrayListSieve() {
+		loadTestSieve(new BooleanArrayListSieve());
 	}
+
+    @Test
+    public final void loadTestBooleanArrayListSieveWithSieveSkip() { loadTestSieve(new BooleanArrayListSieveWithEvenSkip()); };
+
+	@Test
+	public final void loadTestBooleanArraySieveWithEvenSkip() {
+		loadTestSieve(new BooleanArraySieveWithEvenSkip());
+	}
+
+    @Test
+    public final void loadTestBooleanArraySieve() {
+        loadTestSieve(new BooleanArraySieve());
+    }
 	
 	@Test
 	public final void loadTestBitSetSieve() {
-		loadTestSieve(bitSetSieve);
+		loadTestSieve(new BitSetSieve());
 	}
 	
 	protected void loadTestSieve(Sieve sieve) {
