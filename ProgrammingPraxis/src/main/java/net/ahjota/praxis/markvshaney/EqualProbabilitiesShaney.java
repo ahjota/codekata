@@ -17,6 +17,7 @@ public class EqualProbabilitiesShaney implements MarkVShaney {
      * val  List of Strings representing all possible words following the two word key.
      */
     Map<String, List<String>> equalProbabilitiesMarkov = new HashMap<String, List<String>>();
+    private Random rng;
 
     public static void main(String[] args) {
         MarkVShaney epShaney = null;
@@ -127,36 +128,52 @@ public class EqualProbabilitiesShaney implements MarkVShaney {
 
     @Override
     public String generate(int wordCount) throws IllegalStateException {
-        System.out.println("Generating text");
+//        System.out.println("Generating text");
 
         if (!isTrained()) {
             throw new IllegalStateException("Unable to generate texts; Shaney has not been trained");
         }
 
-        Random rng = new Random();
+        rng = new Random();
 
         StringBuilder sb = new StringBuilder();
         String word1 = null;
         String word2 = null;
-        String key = createKey(word1, word2);
         String word3 = null;
 
+        // word counts
         for (int count = 0; count < wordCount; ++count) {
-            List<String> futureStates = equalProbabilitiesMarkov.get(key);
-            System.out.println(key + ":" + futureStates);
-
-            // choose one of the possible future states
-            int nextFutureState = rng.nextInt(futureStates.size());
-            word3 = futureStates.get(nextFutureState);
+            word3 = chooseNextWord(word1, word2);
 
             sb.append(" ");
             sb.append(word3);
 
             word1 = word2;
             word2 = word3;
-            key = createKey(word1, word2);
+        }
+
+        // find a period.
+        while (!word3.endsWith(".")) {
+            word3 = chooseNextWord(word1, word2);
+
+            sb.append(" ");
+            sb.append(word3);
+
+            word1 = word2;
+            word2 = word3;
         }
 
         return sb.toString();
+    }
+
+    private String chooseNextWord(String word1, String word2) {
+        String word3;List<String> futureStates = equalProbabilitiesMarkov.get(createKey(word1, word2));
+//            System.out.println(key + ":" + futureStates);
+
+        // choose one of the possible future states
+        int nextFutureState = rng.nextInt(futureStates.size());
+        word3 = futureStates.get(nextFutureState);
+
+        return word3;
     }
 }
