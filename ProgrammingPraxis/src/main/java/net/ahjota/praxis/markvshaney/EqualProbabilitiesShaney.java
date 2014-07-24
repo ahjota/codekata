@@ -19,16 +19,30 @@ public class EqualProbabilitiesShaney implements MarkVShaney {
     Map<String, List<String>> equalProbabilitiesMarkov = new HashMap<String, List<String>>();
 
     public static void main(String[] args) {
+        MarkVShaney epShaney = null;
+
         if (args[0] != null) {
             String fileName = args[0];
             try {
-                FileReader reader = new FileReader(fileName);
-
-                MarkVShaney epShaney = new EqualProbabilitiesShaney(reader);
-                System.out.println(epShaney.generate(100));
+                epShaney = new EqualProbabilitiesShaney(new FileReader(fileName));
             } catch (FileNotFoundException e) {
                 throw new IllegalArgumentException("File not found; exiting");
             }
+        }
+
+        if (args.length > 1) {
+            for (String fileName : args) {
+
+                try {
+                    epShaney.train(new FileReader(fileName));
+                } catch (FileNotFoundException e) {
+                    System.out.println("Additional files not found");
+                }
+            }
+        }
+
+        if (epShaney != null) {
+            System.out.println(epShaney.generate(100));
         }
     }
 
@@ -82,7 +96,7 @@ public class EqualProbabilitiesShaney implements MarkVShaney {
                 }
             } while (nextChar > -1);
         } catch (IOException e) {
-            throw new IllegalArgumentException("Unable to read file",e);
+            throw new IllegalArgumentException("Unable to read file", e);
         }
     }
 
@@ -94,11 +108,9 @@ public class EqualProbabilitiesShaney implements MarkVShaney {
         List<String> futureStates;
         if (equalProbabilitiesMarkov.containsKey(currentStateKey)) {
             futureStates = equalProbabilitiesMarkov.get(currentStateKey);
-            System.out.println("old state! " + currentStateKey + ":" + futureStates);
         } else {
             futureStates = new ArrayList<String>();
             equalProbabilitiesMarkov.put(currentStateKey, futureStates);
-            System.out.println("new state! " + currentStateKey);
         }
 
         return futureStates;
@@ -129,8 +141,9 @@ public class EqualProbabilitiesShaney implements MarkVShaney {
         String key = createKey(word1, word2);
         String word3 = null;
 
-        for (int count=0; count < wordCount; ++count) {
+        for (int count = 0; count < wordCount; ++count) {
             List<String> futureStates = equalProbabilitiesMarkov.get(key);
+            System.out.println(key + ":" + futureStates);
 
             // choose one of the possible future states
             int nextFutureState = rng.nextInt(futureStates.size());
