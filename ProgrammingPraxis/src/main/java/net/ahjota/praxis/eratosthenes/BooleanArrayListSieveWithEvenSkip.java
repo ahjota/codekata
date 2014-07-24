@@ -20,7 +20,7 @@ import java.util.Collections;
  * @author AJ
  * 
  */
-public class BooleanArrayListSieveWithEvenSkip extends Sieve {
+public class BooleanArrayListSieveWithEvenSkip implements Sieve {
 
 	/**
 	 * @param args

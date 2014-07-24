@@ -20,7 +20,7 @@ import java.util.BitSet;
  * @author AJ
  * 
  */
-public class BitSetSieve extends Sieve {
+public class BitSetSieve implements Sieve {
 
 	/**
 	 * @param args

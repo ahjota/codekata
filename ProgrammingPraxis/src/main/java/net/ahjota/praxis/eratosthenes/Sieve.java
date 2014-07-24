@@ -13,8 +13,8 @@ package net.ahjota.praxis.eratosthenes;
  * @author ajalon
  * 
  */
-public abstract class Sieve {
+public interface Sieve {
 
-	public abstract long countPrimesLessThanOrEqualTo(int n);
+	public long countPrimesLessThanOrEqualTo(int n);
 
 }

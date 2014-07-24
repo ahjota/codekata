@@ -21,7 +21,7 @@ import java.util.HashSet;
  * @author AJ
  * 
  */
-public class HashSetSieve extends Sieve {
+public class HashSetSieve implements Sieve {
 
 	static final int NUM_TESTS_PER_N = 10;
 

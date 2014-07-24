@@ -20,7 +20,7 @@ import java.util.Arrays;
  * @author AJ
  * 
  */
-public class BooleanArraySieve extends Sieve {
+public class BooleanArraySieve implements Sieve {
 
 	/**
 	 * @param args

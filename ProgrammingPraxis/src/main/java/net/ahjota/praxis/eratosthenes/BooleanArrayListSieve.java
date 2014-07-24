@@ -21,7 +21,7 @@ import java.util.Collections;
  * @author AJ
  * 
  */
-public class BooleanArrayListSieve extends Sieve {
+public class BooleanArrayListSieve implements Sieve {
 
 	/**
 	 * @param args

@@ -14,7 +14,7 @@ import java.util.Vector;
  * @author AJ
  * 
  */
-public class VectorSieve extends Sieve {
+public class VectorSieve implements Sieve {
 
 	static final int NUM_TESTS_PER_N = 10;
 
