@@ -43,7 +43,7 @@ public class EqualProbabilitiesShaney implements MarkVShaney {
         }
 
         if (epShaney != null) {
-            System.out.println(epShaney.generate(100));
+            System.out.println(epShaney.generate(1));
         }
     }
 
@@ -132,6 +132,14 @@ public class EqualProbabilitiesShaney implements MarkVShaney {
 
         if (!isTrained()) {
             throw new IllegalStateException("Unable to generate texts; Shaney has not been trained");
+        }
+
+        if (wordCount < 0) {
+            throw new IllegalArgumentException("minimum word count cannot be negative");
+        }
+
+        if (wordCount == 0) {
+            return "";
         }
 
         rng = new Random();

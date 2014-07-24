@@ -58,7 +58,7 @@ public interface MarkVShaney {
 
     /**
      * @param wordCount Minimum number of words the generated text should contain.
-     * @return A text string generated from the Mark V. Shaney markov chain.
+     * @return A text string generated from the Mark V. Shaney markov chain, or an empty string if wordCount is set to 0.
      * @throws IllegalStateException if Mark V. Shaney has not consumed a training text.
      */
     public String generate(int wordCount) throws IllegalStateException;
