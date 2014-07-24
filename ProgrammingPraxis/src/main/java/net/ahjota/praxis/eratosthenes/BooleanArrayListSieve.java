@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- *  * This implementation uses a boolean arraylist to represent the list of primes, where
+ * This implementation uses a boolean arraylist to represent the list of primes, where
  * the array index is the actual numerical value and the boolean value represents
  * whether said value is prime.
  * 
@@ -82,16 +82,15 @@ public class BooleanArrayListSieve extends Sieve {
 			primes.set(i, true);
 		}
 
-		int lastSieve = (int) Math.sqrt(n);
-
 		// optimization: we can stop sifting at the square root of the last
 		// element (largest number) in the sieve
-
+        int lastSieve = (int) Math.sqrt(n);
 		for (int sieve = 3; sieve <= lastSieve; ++sieve) {
-			if (primes.get(sieve) == true) {
+			if (primes.get(sieve)) {
 			// System.out.println("Sifting multiples of " + sieve);
-			// optimization: within each sift, we start removing non-primes
-			// beginning with the square of the sifting number
+			// optimization: for each sift, we have already determined primality of all
+			// candidates less than the square of the sift number, so we can start
+			// removing non-primes beginning with the square of the sift number
 				for (int remove = sieve * sieve; remove <= n; remove += sieve) {
 					primes.set(remove, false);
 				}

@@ -69,15 +69,16 @@ public class VectorSieve extends Sieve {
 			primes.add(i);
 		}
 //		System.out.println("Fill complete: " + primes.toString());
-		int lastSieve = (int) Math.sqrt(n);
-		
+
 		// optimization: we can stop sifting at the square root of the last
 		// element (largest number) in the sieve
+        int lastSieve = (int) Math.sqrt(n);
 		for (int i = 0; i < lastSieve; ++i) {
 			int sieve = primes.get(i);
-//			System.out.println("Sifting multiples of " + sieve);
-			// optimization: within each sift, we start removing non-primes
-			// beginning with the square of the sifting number
+            // System.out.println("Sifting multiples of " + sieve);
+            // optimization: for each sift, we have already determined primality of all
+            // candidates less than the square of the sift number, so we can start
+            // removing non-primes beginning with the square of the sift number
 			for (int j = sieve * sieve; j <= n; j += sieve) {
 				primes.removeElement(j);
 			}
