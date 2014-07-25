@@ -21,26 +21,17 @@ package net.ahjota.praxis.romannumerals;
  */
 public class RomanNumeralCalculator {
 
-
-    public static void main(String[] args) {
-        RomanNumeralCalculator rnc = new RomanNumeralCalculator();
-        System.out.println(rnc.toDecimal("XV"));//15
-        System.out.println(rnc.toDecimal("XXX"));//30
-        System.out.println(rnc.toDecimal("CCCLXIX"));//369
-        System.out.println(rnc.toDecimal("CDXLVIII"));//448
-
-    }
-
     public int toDecimal(String numeral) {
+        numeral = numeral.trim();
         return toDecimal(numeral.toCharArray());
     }
 
-    public int toDecimal(char[] numeral) {
+    private int toDecimal(char[] numeral) {
         int result = 0;
         int lastAddend = 0;
         for (char c : numeral) {
             int newAddend = 0;
-            switch (c) {
+            switch (Character.toUpperCase(c)) {
                 case 'M':
                     newAddend = 1000;
                     break;
@@ -77,6 +68,10 @@ public class RomanNumeralCalculator {
         }
 
         return result;
+    }
+
+    public String toRoman(int value) {
+        return null;
     }
 
     public String add(String... addends) {
