@@ -71,6 +71,10 @@ public class RomanNumeralCalculator {
     }
 
     public String toRoman(int value) {
+        if (1 > value) {
+            throw new IllegalArgumentException("roman numeral notation cannot express zero or negative integers");
+        }
+
         return null;
     }
 

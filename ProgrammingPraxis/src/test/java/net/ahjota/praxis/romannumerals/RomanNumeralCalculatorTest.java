@@ -103,6 +103,17 @@ public class RomanNumeralCalculatorTest {
         assertEquals(4494, fixture.toDecimal("MMMMCCCCXCIIII"));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void convertZeroToRomanThrowsException() {
+        // remember, roman notation cannot express zero
+        fixture.toRoman(0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void convertNegativeNumberToRomanThrowsException() {
+        // remember, roman notation cannot express negative numbers
+        fixture.toRoman(-1);
+    }
 
     @BeforeClass
     public static void setupClass() {
