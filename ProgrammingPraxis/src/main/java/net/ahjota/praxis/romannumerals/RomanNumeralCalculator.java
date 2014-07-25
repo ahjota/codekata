@@ -1,5 +1,8 @@
 package net.ahjota.praxis.romannumerals;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * I    1
  * V    5
@@ -103,7 +106,13 @@ public class RomanNumeralCalculator {
             }
         }
 
-        return sb.toString();
+        return replaceAdditiveNotationWithSubtractive(sb.toString());
+    }
+
+    // FIXME
+    private String replaceAdditiveNotationWithSubtractive(String numeral) {
+
+        return numeral;
     }
 
     public String add(String... addends) {

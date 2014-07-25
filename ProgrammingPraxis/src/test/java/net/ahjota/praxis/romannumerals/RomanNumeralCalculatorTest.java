@@ -146,6 +146,7 @@ public class RomanNumeralCalculatorTest {
         }
     }
 
+    @Test
     public void convertToSubtractiveRomanNumerals() {
         Map<Integer, String> numerals = new HashMap<Integer, String>();
         numerals.put(4, "IV");
