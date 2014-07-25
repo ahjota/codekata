@@ -75,7 +75,35 @@ public class RomanNumeralCalculator {
             throw new IllegalArgumentException("roman numeral notation cannot express zero or negative integers");
         }
 
-        return null;
+        StringBuilder sb = new StringBuilder();
+
+        int remainder = value;
+        while (remainder > 0) {
+            if (remainder - 1000 >= 0) {
+                remainder -= 1000;
+                sb.append('M');
+            } else if (remainder - 500 >= 0) {
+                remainder -= 500;
+                sb.append('D');
+            } else if (remainder - 100 >= 0) {
+                remainder -= 100;
+                sb.append('C');
+            } else if (remainder - 50 >= 0) {
+                remainder -= 50;
+                sb.append('L');
+            } else if (remainder - 10 >= 0) {
+                remainder -= 10;
+                sb.append('X');
+            } else if (remainder - 5 >= 0) {
+                remainder -= 5;
+                sb.append('V');
+            } else if (remainder - 1 >= 0) {
+                remainder -= 1;
+                sb.append('I');
+            }
+        }
+
+        return sb.toString();
     }
 
     public String add(String... addends) {

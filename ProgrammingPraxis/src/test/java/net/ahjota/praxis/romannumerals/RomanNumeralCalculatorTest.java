@@ -115,6 +115,51 @@ public class RomanNumeralCalculatorTest {
         fixture.toRoman(-1);
     }
 
+    @Test
+    public void convertToRomanRoots() {
+        Map<Integer, String> numerals = new HashMap<Integer, String>();
+        numerals.put(1, "I");
+        numerals.put(5, "V");
+        numerals.put(10, "X");
+        numerals.put(50, "L");
+        numerals.put(100, "C");
+        numerals.put(500, "D");
+        numerals.put(1000, "M");
+
+        for (Integer number : numerals.keySet()) {
+            assertEquals(numerals.get(number), fixture.toRoman(number));
+        }
+    }
+
+    @Test
+    public void convertToRomanNumerals() {
+        Map<Integer, String> numerals = new HashMap<Integer, String>();
+        numerals.put(22, "XXII");
+        numerals.put(58, "LVIII");
+        numerals.put(103, "CIII");
+        numerals.put(505, "DV");
+        numerals.put(1385, "MCCCLXXXV");
+        numerals.put(9000, "MMMMMMMMM");
+
+        for (Integer number : numerals.keySet()) {
+            assertEquals(numerals.get(number), fixture.toRoman(number));
+        }
+    }
+
+    public void convertToSubtractiveRomanNumerals() {
+        Map<Integer, String> numerals = new HashMap<Integer, String>();
+        numerals.put(4, "IV");
+        numerals.put(9, "IX");
+        numerals.put(40, "XL");
+        numerals.put(90, "XC");
+        numerals.put(400, "CD");
+        numerals.put(900, "CM");
+
+        for (Integer number : numerals.keySet()) {
+            assertEquals(numerals.get(number), fixture.toRoman(number));
+        }
+    }
+
     @BeforeClass
     public static void setupClass() {
         fixture = new RomanNumeralCalculator();
