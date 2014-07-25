@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author ajalon
@@ -15,7 +15,7 @@ public class RomanNumeralCalculatorTest {
 
     static RomanNumeralCalculator fixture;
 
-    @Test(expected=NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void convertNullToDecimalThrowsException() {
         fixture.toDecimal(null);
     }
@@ -26,7 +26,7 @@ public class RomanNumeralCalculatorTest {
         assertEquals(0, fixture.toDecimal(" "));
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void convertNonRomanStringToDecimalThrowsException() {
         fixture.toDecimal("MA");
     }
@@ -63,7 +63,6 @@ public class RomanNumeralCalculatorTest {
         }
     }
 
-
     @Test
     public void convertRomanNumeralsToDecimal() {
         Map<Integer, String> numerals = new HashMap<Integer, String>();
@@ -86,12 +85,12 @@ public class RomanNumeralCalculatorTest {
     @Test
     public void compareAdditiveAndSubtractiveNotations() {
         Map<String, String> matchingNumerals = new HashMap<String, String>();
-        matchingNumerals.put("IIII","IV");
-        matchingNumerals.put("VIIII","IX");
-        matchingNumerals.put("XXXX","XL");
-        matchingNumerals.put("LXXXX","XC");
-        matchingNumerals.put("CCCC","CD");
-        matchingNumerals.put("DCCCC","CM");
+        matchingNumerals.put("IIII", "IV");
+        matchingNumerals.put("VIIII", "IX");
+        matchingNumerals.put("XXXX", "XL");
+        matchingNumerals.put("LXXXX", "XC");
+        matchingNumerals.put("CCCC", "CD");
+        matchingNumerals.put("DCCCC", "CM");
 
         for (String additive : matchingNumerals.keySet()) {
             String subtractive = matchingNumerals.get(additive);
@@ -103,7 +102,6 @@ public class RomanNumeralCalculatorTest {
     public void convertMixedNotationNumeralToDecimal() {
         assertEquals(4494, fixture.toDecimal("MMMMCCCCXCIIII"));
     }
-
 
 
     @BeforeClass
